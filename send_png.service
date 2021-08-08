@@ -1,0 +1,14 @@
+[Unit]
+Description=Send housemon figures
+After=network.target
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=10
+User=pi
+ExecStart=/usr/bin/env HOME=/home/pi bash /home/pi/python/send_png.sh
+
+[Install]
+WantedBy=multi-user.target

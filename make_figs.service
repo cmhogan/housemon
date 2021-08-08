@@ -1,0 +1,14 @@
+[Unit]
+Description=Create and send housemon figures
+After=network.target
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=10
+User=pi
+ExecStart=/usr/bin/env HOME=/home/pi bash /home/pi/python/make_figs.sh
+
+[Install]
+WantedBy=multi-user.target

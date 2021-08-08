@@ -1,0 +1,14 @@
+[Unit]
+Description=Take snapshots
+After=network.target
+StartLimitIntervalSec=0
+
+[Service]
+Type=Simple
+Restart=always
+RestartSec=10
+User=pi
+ExecStart=/usr/bin/env bash /home/pi/python/take_snapshot.sh
+
+[Install]
+WantedBy=multi-user.target
