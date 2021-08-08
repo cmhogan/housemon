@@ -1,0 +1,33 @@
+sudo cp run_sensors.service /etc/services/system/
+systemctl enable run_sensors
+
+ADD: 
+
+dtoverlay=w1-gpio,gpiopin=14
+
+too /boot/config.txt
+
+sudo sh -c 'grep "w1_therm" /etc/modules || echo "w1_therm" >> /etc/modules'
+sudo sh -c 'grep "w1_gpio" /etc/modules || echo "w1_gpio" >> /etc/modules'
+
+enable 1-wire in raspi-config
+
+reboot
+
+Then if you do not have a pullup resistor physically installed with the sensor,
+you will need to enable the internal pi resistor with the first couple of lines 
+from one of the run_sensors.py, like:
+
+import RPi.GPIO as GPIO
+
+GPIO_PIN_NUMBER=14
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(GPIO_PIN_NUMBER, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+
+You can change the GPIO_PIN_NUMBER to whichever pin you have the data line from
+the sensor on. 
+
+check device name in /sys/bus/w1/devices and add it to a new sensor (and 
+possibly a new location) in the database
+
+reboot
