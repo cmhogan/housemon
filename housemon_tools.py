@@ -28,6 +28,31 @@ def add_temperature(cnx_details, record):
     cursor.close();
     connection.close();
 
+def add_pm25(cnx_details, record):
+    import mysql.connector as mariadb
+    try:
+        connection = mariadb.connect(
+            user = cnx_details[0],
+            password = cnx_details[1],
+            database = cnx_details[2],
+            host = cnx_details[3],
+            port = cnx_details[4])
+        
+        cursor = connection.cursor()
+    except mariadb.Error as err: 
+        print("Error in add_pm25 while connecting to db: {}".format(err))
+        return -1
+    
+    insert_query = """INSERT INTO measurement (time, sensor_id, raw_value) VALUES (%s, %s, %s) """
+    
+    cursor.execute(insert_query, record)
+        
+    connection.commit()
+    cursor.close();
+    connection.close();
+
+
+
 def get_sensor_id(cnx_details, name):
     import mysql.connector as mariadb
     

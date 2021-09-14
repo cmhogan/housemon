@@ -1,0 +1,14 @@
+[Unit]
+Description=Read from PM2.5 0
+After=network.target
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=10
+User=pi
+ExecStart=/usr/bin/env HOME=/home/pi bash /home/pi/python/read_from_pm25_0.sh
+
+[Install]
+WantedBy=multi-user.target
