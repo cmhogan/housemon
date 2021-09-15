@@ -164,3 +164,8 @@ def add_new_location(cnx_details, description, olc_code):
     cursor.close()
     connection.close()
     return new_id
+
+
+
+
+
